@@ -7,6 +7,7 @@ import {
   Octahedron,
   PerspectiveCamera,
   Plane,
+  Box,
 } from "@react-three/drei";
 
 import { Lights } from "./Lights";
@@ -25,7 +26,7 @@ export const Three = () => {
       <Canvas dpr={[1, 2]} shadows>
         <Lights />
         <PerspectiveCamera makeDefault position={[0, 0, 100]} />
-        <Octahedron
+        <Box
           args={[1, 1, 1]}
           radius={10}
           detail={4}
@@ -34,8 +35,13 @@ export const Three = () => {
           castShadow={true}
           ref={meshOne}
         >
-          <meshStandardMaterial attach="material" color="#f0f0f0" />
-        </Octahedron>
+          <meshStandardMaterial attachArray="material" color="#fff600" />
+          <meshStandardMaterial attachArray="material" color="#ff0000" />
+          <meshStandardMaterial attachArray="material" color="#fff600" />
+          <meshStandardMaterial attachArray="material" color="#ff0000" />
+          <meshStandardMaterial attachArray="material" color="#fff600" />
+          <meshStandardMaterial attachArray="material" color="#ff0000" />
+        </Box>
         <Plane
           args={[260, 120, 120]}
           position={[0, -30, 0]}

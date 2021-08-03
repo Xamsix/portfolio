@@ -5,7 +5,7 @@ import { SpotLightHelper } from "three";
 
 export const Lights = () => {
   const spotRef = useRef();
-  useHelper(spotRef, SpotLightHelper, "teal");
+  //   useHelper(spotRef, SpotLightHelper, "teal");
 
   return (
     <>
