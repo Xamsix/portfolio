@@ -11,9 +11,40 @@ const Home = () => {
       </Head>
       <Three />
       <Grain />
+      <Projects>
+        <li>Project 1</li>
+        <li>Project 2</li>
+        <li>Project 3</li>
+      </Projects>
     </PageWrapper>
   );
 };
+
+const Projects = styled.ul`
+  position: absolute;
+  right: 4vw;
+  top: 50%;
+  transform: translateY(-50%);
+
+  li {
+    color: white;
+    font-size: 4vw;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 2vw;
+    transition: color 0.3s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      color: #e27d60;
+    }
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+`;
 
 const PageWrapper = styled.div`
   display: flex;

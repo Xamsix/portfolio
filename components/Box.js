@@ -2,28 +2,28 @@ import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
 
-export const Box = (props) => {
+export const Box = () => {
   const mesh = useRef();
-
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
 
   useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
 
   return (
     <NativeBox
       args={[1, 1, 1]}
-      {...props}
+      radius={10}
+      detail={4}
+      position={[0, 0, 0]}
+      scale={[20, 20, 20]}
+      castShadow={true}
+      rotation={[45, 45, 0]}
       ref={mesh}
-      scale={active ? [18, 18, 18] : [20, 20, 20]}
-      onClick={() => setActive(!active)}
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}
     >
-      <meshStandardMaterial
-        attach="material"
-        color={hovered ? "#2b6c76" : "#720b23"}
-      />
+      <meshStandardMaterial attachArray="material" color="#e27d60" />
+      <meshStandardMaterial attachArray="material" color="#85dcb0" />
+      <meshStandardMaterial attachArray="material" color="#e8a87c" />
+      <meshStandardMaterial attachArray="material" color="#c38d9e" />
+      <meshStandardMaterial attachArray="material" color="#41b3a3" />
+      <meshStandardMaterial attachArray="material" color="#ff0000" />
     </NativeBox>
   );
 };

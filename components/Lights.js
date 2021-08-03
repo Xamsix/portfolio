@@ -9,7 +9,7 @@ export const Lights = () => {
 
   return (
     <>
-      <ambientLight intensity={2} />
+      <ambientLight intensity={1} />
       <spotLight
         position={[0, 200, 0]}
         penumbra={1}
@@ -17,6 +17,7 @@ export const Lights = () => {
         color="white"
         castShadow={true}
         ref={spotRef}
+        intensity={0.6}
       />
     </>
   );
