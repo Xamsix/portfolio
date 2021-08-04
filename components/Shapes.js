@@ -106,7 +106,7 @@ export const Shapes = ({ clickedItem }) => {
         mirror={0.8}
         mixBlur={0.8}
         mixStrength={showReflection ? 0.6 : 0}
-        depthScale={1}
+        depthScale={0.1}
       >
         {(Material, props) => (
           <Material
