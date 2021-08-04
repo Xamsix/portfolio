@@ -7,7 +7,7 @@ import { SpotLightHelper } from "three";
 
 import * as THREE from "three";
 
-export const Lights = ({ hoveredItem }) => {
+export const Lights = ({ hoveredItem, clickedItem }) => {
   const spotRefOne = useRef();
   const spotRefTwo = useRef();
   //   useHelper(spotRef, SpotLightHelper, "teal");
@@ -15,10 +15,10 @@ export const Lights = ({ hoveredItem }) => {
   useEffect(() => {
     let newColor;
 
-    if (hoveredItem === true) {
-      newColor = new THREE.Color("#FF00F5");
-    } else {
+    if (!hoveredItem && !clickedItem) {
       newColor = new THREE.Color("red");
+    } else {
+      newColor = new THREE.Color("#FF00F5");
     }
 
     //TODO: This should be shorter
@@ -47,7 +47,7 @@ export const Lights = ({ hoveredItem }) => {
         duration: 1,
         delay: -1,
       });
-  }, [hoveredItem]);
+  }, [hoveredItem, clickedItem]);
 
   return (
     <>
@@ -57,7 +57,6 @@ export const Lights = ({ hoveredItem }) => {
         penumbra={0.5}
         angle={0.5}
         color="red"
-        // color={hoveredItem ? "#FF00F5" : "red"}
         castShadow={false}
         intensity={2}
         ref={spotRefOne}
@@ -67,7 +66,6 @@ export const Lights = ({ hoveredItem }) => {
         penumbra={0.5}
         angle={0.5}
         color="red"
-        // color={hoveredItem ? "#FF00F5" : "red"}
         castShadow={false}
         intensity={2}
         ref={spotRefTwo}

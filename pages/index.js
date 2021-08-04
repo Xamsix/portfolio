@@ -1,24 +1,26 @@
 import Head from "next/head";
 import styled from "styled-components";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Three } from "../components/Three";
 
 const Home = () => {
   const [hoveredItem, setHoveredItem] = useState(false);
+  const [clickedItem, setClickedItem] = useState(false);
 
   return (
     <PageWrapper>
       <Head>
         <title>Portfolio</title>
       </Head>
-      <Three hoveredItem={hoveredItem} />
+      <Three hoveredItem={hoveredItem} clickedItem={clickedItem} />
       <Grain />
       <Projects>
         <li
           onMouseEnter={() => setHoveredItem(true)}
           onMouseLeave={() => setHoveredItem(false)}
+          onClick={() => setClickedItem(true)}
         >
           Hypercoop
         </li>
@@ -26,6 +28,12 @@ const Home = () => {
     </PageWrapper>
   );
 };
+
+const VideoElement = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
 
 const Projects = styled.ul`
   position: absolute;
