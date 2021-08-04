@@ -6,9 +6,9 @@ import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
 import { Plane, Reflector, useTexture } from "@react-three/drei";
 
-export const Shapes = ({ hoveredItem, clickedItem }) => {
+export const Shapes = ({ clickedItem }) => {
   const mesh = useRef();
-  const bottomPlane = useRef();
+  const [showReflection, setShowReflection] = useState(false);
   const frontMesh = useRef();
   const [video] = useState(() => {
     const vid = document.createElement("video");
@@ -21,38 +21,38 @@ export const Shapes = ({ hoveredItem, clickedItem }) => {
 
   useEffect(() => void video.play(), [video]);
 
-  let hovered = false;
-
   const Raf = () =>
     useFrame((state) => {
       const boxMesh = mesh.current;
 
-      if (!hovered) {
-        boxMesh.rotation.x += 0.005;
-        boxMesh.rotation.y += 0.005;
-      } else {
-        gsap.to(state.camera.position, {
-          x: 0,
-          y: 0,
-          duration: 1,
-        });
-      }
+      boxMesh.rotation.x += 0.005;
+      boxMesh.rotation.y += 0.005;
     });
 
   useEffect(() => {
     if (clickedItem) {
-      //TODO: Check if hover animation was completed before expanding
-      mesh.current.rotation.x = 0;
-      mesh.current.rotation.y = 0;
-
+      const xEuler = 1.57 * Math.round(mesh.current.rotation.x / 1.57);
+      const yEuler = 1.57 * Math.round(mesh.current.rotation.y / 1.57);
       const whiteColor = new THREE.Color("#FFFFFF");
 
       gsap
         .timeline()
+        .to(mesh.current.rotation, {
+          x: xEuler,
+          y: yEuler,
+          duration: 1,
+          onComplete: () => {
+            mesh.current.rotation.x = 0;
+            mesh.current.rotation.y = 0;
+          },
+        })
         .to(mesh.current.scale, {
           x: 4,
           y: 2,
           duration: 1,
+          onComplete: () => {
+            setShowReflection(true);
+          },
         })
         .to(frontMesh.current.color, {
           r: whiteColor.r,
@@ -64,19 +64,9 @@ export const Shapes = ({ hoveredItem, clickedItem }) => {
   }, [clickedItem]);
 
   useEffect(() => {
-    hovered = hoveredItem;
-
-    if (hoveredItem) {
-      const xEuler = 1.57 * Math.round(mesh.current.rotation.x / 1.57);
-      const yEuler = 1.57 * Math.round(mesh.current.rotation.y / 1.57);
-
-      gsap.to(mesh.current.rotation, {
-        x: xEuler,
-        y: yEuler,
-        duration: 1,
-      });
+    if (clickedItem) {
     }
-  }, [hoveredItem]);
+  }, [clickedItem]);
 
   // const floor = useMemo(
   //   () => new THREE.TextureLoader().load("./images/floor.jpg"),
@@ -113,9 +103,10 @@ export const Shapes = ({ hoveredItem, clickedItem }) => {
         position={[0, -20, 0]}
         rotation-x={-Math.PI / 2}
         receiveShadow={true}
-        mirror={1}
-        mixBlur={0.6}
-        mixStrength={0.6}
+        mirror={0.8}
+        mixBlur={0.8}
+        mixStrength={showReflection ? 0.6 : 0}
+        depthScale={1}
       >
         {(Material, props) => (
           <Material

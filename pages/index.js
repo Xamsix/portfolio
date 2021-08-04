@@ -29,12 +29,6 @@ const Home = () => {
   );
 };
 
-const VideoElement = styled.video`
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
 const Projects = styled.ul`
   position: absolute;
   right: 4vw;

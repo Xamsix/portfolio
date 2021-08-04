@@ -64,8 +64,9 @@ export const Lights = ({ hoveredItem, clickedItem }) => {
         });
     } else {
       gsap.timeline().to(spotRefThree.current, {
-        intensity: 0,
+        intensity: 0.2,
         duration: 1,
+        delay: 1.2,
       });
     }
   }, [hoveredItem, clickedItem]);
