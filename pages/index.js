@@ -1,18 +1,27 @@
 import Head from "next/head";
 import styled from "styled-components";
 
+import { useState } from "react";
+
 import { Three } from "../components/Three";
 
 const Home = () => {
+  const [hoveredItem, setHoveredItem] = useState(false);
+
   return (
     <PageWrapper>
       <Head>
         <title>Portfolio</title>
       </Head>
-      <Three />
+      <Three hoveredItem={hoveredItem} />
       <Grain />
       <Projects>
-        <li>Hypercoop</li>
+        <li
+          onMouseEnter={() => setHoveredItem(true)}
+          onMouseLeave={() => setHoveredItem(false)}
+        >
+          Hypercoop
+        </li>
       </Projects>
     </PageWrapper>
   );
@@ -35,7 +44,7 @@ const Projects = styled.ul`
     cursor: pointer;
 
     &:hover {
-      color: #e27d60;
+      color: #ff00f5;
     }
 
     &:last-of-type {

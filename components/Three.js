@@ -12,11 +12,11 @@ import {
 import { Lights } from "./Lights";
 import { Box } from "./Box";
 
-export const Three = () => {
+export const Three = ({ hoveredItem }) => {
   return (
     <Component>
       <Canvas dpr={[1, 2]} shadows>
-        <Lights />
+        <Lights hoveredItem={hoveredItem} />
         <PerspectiveCamera makeDefault position={[0, 0, 100]} />
         <Box />
         <Plane

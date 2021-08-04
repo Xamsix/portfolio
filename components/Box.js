@@ -8,7 +8,15 @@ import * as THREE from "three";
 export const Box = () => {
   const mesh = useRef();
 
-  useFrame(() => (mesh.current.rotation.x += 0.005));
+  useFrame(() => {
+    const boxMesh = mesh.current;
+
+    boxMesh.rotation.x += 0.005;
+  });
+
+  useEffect(() => {
+    console.log(mesh);
+  }, [mesh]);
 
   const texture = useMemo(
     () => new THREE.TextureLoader().load("./images/hypercoop.jpg"),
