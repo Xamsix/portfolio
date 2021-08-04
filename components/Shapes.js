@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
-import { Plane } from "@react-three/drei";
+import { Plane, Reflector, useTexture } from "@react-three/drei";
 
 export const Shapes = ({ hoveredItem, clickedItem }) => {
   const mesh = useRef();
@@ -47,8 +47,6 @@ export const Shapes = ({ hoveredItem, clickedItem }) => {
 
       const whiteColor = new THREE.Color("#FFFFFF");
 
-      console.log(frontMesh.current);
-
       gsap
         .timeline()
         .to(mesh.current.scale, {
@@ -80,10 +78,10 @@ export const Shapes = ({ hoveredItem, clickedItem }) => {
     }
   }, [hoveredItem]);
 
-  let texture = useMemo(
-    () => new THREE.TextureLoader().load("./images/hypercoop-video.mp4"),
-    []
-  );
+  // const floor = useMemo(
+  //   () => new THREE.TextureLoader().load("./images/floor.jpg"),
+  //   []
+  // );
 
   return (
     <>
@@ -109,22 +107,45 @@ export const Shapes = ({ hoveredItem, clickedItem }) => {
         </meshStandardMaterial>
         <meshStandardMaterial attachArray="material" color="#010101" />
       </NativeBox>
-      <Plane
-        args={[400, 120, 120]}
-        position={[0, -30, 0]}
+      <Reflector
+        resolution={1024}
+        args={[400, 200, 120]}
+        position={[0, -20, 0]}
         rotation-x={-Math.PI / 2}
         receiveShadow={true}
-        ref={bottomPlane}
+        mirror={1}
+        mixBlur={0.6}
+        mixStrength={0.6}
       >
-        <meshPhongMaterial attach="material" color="#202020" />
-      </Plane>
-      <Plane
+        {(Material, props) => (
+          <Material
+            color="#a0a0a0"
+            normalScale={[0.6, 0.6]}
+            metalness={0}
+            {...props}
+          />
+        )}
+      </Reflector>
+
+      <Reflector
+        resolution={1024}
         args={[800, 300, 120]}
         position={[0, 0, -100]}
         receiveShadow={true}
+        mirror={1}
+        mixBlur={8}
+        mixStrength={1}
+        blur={[400, 100]}
       >
-        <meshPhongMaterial attach="material" color="#202020" />
-      </Plane>
+        {(Material, props) => (
+          <Material
+            color="#a0a0a0"
+            normalScale={[0.6, 0.6]}
+            metalness={0}
+            {...props}
+          />
+        )}
+      </Reflector>
       {!clickedItem && <Raf />}
     </>
   );
