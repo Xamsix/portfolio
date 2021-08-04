@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
@@ -5,18 +7,34 @@ import * as THREE from "three";
 
 // import hypercoop from "../public/images/hypercoop.jpg";
 
-export const Box = () => {
+export const Box = ({ hoveredItem }) => {
   const mesh = useRef();
+
+  let hovered = false;
 
   useFrame(() => {
     const boxMesh = mesh.current;
 
-    boxMesh.rotation.x += 0.005;
+    if (!hovered) {
+      boxMesh.rotation.x += 0.005;
+      boxMesh.rotation.y += 0.005;
+    }
   });
 
   useEffect(() => {
-    console.log(mesh);
-  }, [mesh]);
+    hovered = hoveredItem;
+
+    if (hoveredItem) {
+      const xEuler = 1.57 * Math.round(mesh.current.rotation.x / 1.57);
+      const yEuler = 1.57 * Math.round(mesh.current.rotation.y / 1.57);
+
+      gsap.timeline().to(mesh.current.rotation, {
+        x: xEuler,
+        y: yEuler,
+        duration: 1,
+      });
+    }
+  }, [hoveredItem]);
 
   const texture = useMemo(
     () => new THREE.TextureLoader().load("./images/hypercoop.jpg"),
@@ -31,7 +49,7 @@ export const Box = () => {
       position={[0, 0, 0]}
       scale={[20, 20, 20]}
       castShadow={true}
-      rotation={[45, 45, 0]}
+      rotation={[1.57, 0, 0]}
       ref={mesh}
     >
       <meshStandardMaterial attachArray="material" color="#010101" />

@@ -18,7 +18,7 @@ export const Three = ({ hoveredItem }) => {
       <Canvas dpr={[1, 2]} shadows>
         <Lights hoveredItem={hoveredItem} />
         <PerspectiveCamera makeDefault position={[0, 0, 100]} />
-        <Box />
+        <Box hoveredItem={hoveredItem} />
         <Plane
           args={[400, 120, 120]}
           position={[0, -30, 0]}
@@ -34,7 +34,7 @@ export const Three = ({ hoveredItem }) => {
         >
           <meshPhongMaterial attach="material" color="#202020" />
         </Plane>
-        <OrbitControls enableZoom={false} />
+        {/* <OrbitControls enableZoom={false} /> */}
       </Canvas>
     </Component>
   );

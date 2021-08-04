@@ -21,6 +21,7 @@ export const Lights = ({ hoveredItem }) => {
       newColor = new THREE.Color("red");
     }
 
+    //TODO: This should be shorter
     gsap
       .timeline()
       .to(spotRefOne.current.color, {
