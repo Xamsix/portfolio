@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
 import * as THREE from "three";
@@ -12,12 +12,25 @@ export const Box = ({ hoveredItem }) => {
 
   let hovered = false;
 
-  useFrame(() => {
+  useFrame((state) => {
     const boxMesh = mesh.current;
+
+    gsap.to(state.camera.position, {
+      x: state.mouse.x * 20,
+      y: state.mouse.y * 10,
+      duration: 1,
+    });
+    state.camera.lookAt(0, 0, 0);
 
     if (!hovered) {
       boxMesh.rotation.x += 0.005;
       boxMesh.rotation.y += 0.005;
+    } else {
+      gsap.to(state.camera.position, {
+        x: 0,
+        y: 0,
+        duration: 1,
+      });
     }
   });
 
