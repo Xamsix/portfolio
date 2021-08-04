@@ -20,9 +20,16 @@ export const Three = () => {
         <PerspectiveCamera makeDefault position={[0, 0, 100]} />
         <Box />
         <Plane
-          args={[260, 120, 120]}
+          args={[400, 120, 120]}
           position={[0, -30, 0]}
           rotation-x={-Math.PI / 2}
+          receiveShadow={true}
+        >
+          <meshPhongMaterial attach="material" color="#202020" />
+        </Plane>
+        <Plane
+          args={[800, 300, 120]}
+          position={[0, 0, -100]}
           receiveShadow={true}
         >
           <meshPhongMaterial attach="material" color="#202020" />

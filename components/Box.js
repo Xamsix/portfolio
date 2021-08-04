@@ -1,11 +1,19 @@
-import { useRef, useState } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
+import * as THREE from "three";
+
+// import hypercoop from "../public/images/hypercoop.jpg";
 
 export const Box = () => {
   const mesh = useRef();
 
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
+  useFrame(() => (mesh.current.rotation.x += 0.005));
+
+  const texture = useMemo(
+    () => new THREE.TextureLoader().load("./images/hypercoop.jpg"),
+    []
+  );
 
   return (
     <NativeBox
@@ -18,12 +26,14 @@ export const Box = () => {
       rotation={[45, 45, 0]}
       ref={mesh}
     >
-      <meshStandardMaterial attachArray="material" color="#e27d60" />
-      <meshStandardMaterial attachArray="material" color="#85dcb0" />
-      <meshStandardMaterial attachArray="material" color="#e8a87c" />
-      <meshStandardMaterial attachArray="material" color="#c38d9e" />
-      <meshStandardMaterial attachArray="material" color="#41b3a3" />
-      <meshStandardMaterial attachArray="material" color="#ff0000" />
+      <meshStandardMaterial attachArray="material" color="#010101" />
+      <meshStandardMaterial attachArray="material" color="#010101">
+        {/* <primitive attach="map" object={texture} /> */}
+      </meshStandardMaterial>
+      <meshStandardMaterial attachArray="material" color="#010101" />
+      <meshStandardMaterial attachArray="material" color="#010101" />
+      <meshStandardMaterial attachArray="material" color="#010101" />
+      <meshStandardMaterial attachArray="material" color="#010101" />
     </NativeBox>
   );
 };
