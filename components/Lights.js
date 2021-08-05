@@ -20,7 +20,7 @@ export const Lights = ({ hoveredItem, clickedItem }) => {
     if (!hoveredItem && !clickedItem) {
       newColor = new THREE.Color("red");
     } else {
-      newColor = new THREE.Color("#FF00F5");
+      newColor = new THREE.Color(hoveredItem);
     }
 
     //TODO: This should be shorter

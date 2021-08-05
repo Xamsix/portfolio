@@ -17,42 +17,80 @@ const Home = () => {
       <Three hoveredItem={hoveredItem} clickedItem={clickedItem} />
       <Grain />
       <Projects>
-        <li
-          onMouseEnter={() => setHoveredItem(true)}
+        <ProjectItem
+          onMouseEnter={() => setHoveredItem("#FF00F5")}
           onMouseLeave={() => setHoveredItem(false)}
           onClick={() => setClickedItem(true)}
+          color="#FF00F5"
         >
           Hypercoop
-        </li>
+        </ProjectItem>
+        <ProjectItem
+          onMouseEnter={() => setHoveredItem("#FFC700")}
+          onMouseLeave={() => setHoveredItem(false)}
+          onClick={() => setClickedItem(true)}
+          color="#FFC700"
+        >
+          SlicedBrand
+        </ProjectItem>
+        <ProjectItem
+          onMouseEnter={() => setHoveredItem("grey")}
+          onMouseLeave={() => setHoveredItem(false)}
+          onClick={() => setClickedItem(true)}
+          color="grey"
+        >
+          Calvin Klein
+        </ProjectItem>
+        <ProjectItem
+          onMouseEnter={() => setHoveredItem("#00F858")}
+          onMouseLeave={() => setHoveredItem(false)}
+          onClick={() => setClickedItem(true)}
+          color="#00F858"
+        >
+          Spotify
+        </ProjectItem>
+        <ProjectItem
+          onMouseEnter={() => setHoveredItem("#3A66FF")}
+          onMouseLeave={() => setHoveredItem(false)}
+          onClick={() => setClickedItem(true)}
+          color="#3A66FF"
+        >
+          WeTransfer
+        </ProjectItem>
       </Projects>
     </PageWrapper>
   );
 };
+
+const ProjectItem = styled.li`
+  font-size: 3vw;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2vw;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+  -webkit-text-stroke: 1px #cdcdcd;
+  opacity: 0.3;
+  color: transparent;
+
+  &:hover {
+    opacity: 1;
+    color: ${(props) => props.color};
+    -webkit-text-stroke: 1px ${(props) => props.color};
+  }
+
+  &:last-of-type {
+    margin: 0;
+  }
+`;
 
 const Projects = styled.ul`
   position: absolute;
   right: 4vw;
   top: 50%;
   transform: translateY(-50%);
-
-  li {
-    color: white;
-    font-size: 4vw;
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 2vw;
-    transition: color 0.3s ease-out;
-    cursor: pointer;
-
-    &:hover {
-      color: #ff00f5;
-    }
-
-    &:last-of-type {
-      margin: 0;
-    }
-  }
+  text-align: right;
 `;
 
 const PageWrapper = styled.div`

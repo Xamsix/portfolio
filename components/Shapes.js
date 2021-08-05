@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box as NativeBox } from "@react-three/drei";
-import { Plane, Reflector, useTexture } from "@react-three/drei";
+import { Plane, Reflector, useTexture, Text } from "@react-three/drei";
 
 export const Shapes = ({ clickedItem }) => {
   const mesh = useRef();
